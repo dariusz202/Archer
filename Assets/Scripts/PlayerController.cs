@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 20.0f;
-    [SerializeField] float verticalBorder = 12.0f;
-    [SerializeField] float horizontalBorder = 16.5f;
     [SerializeField] float speedRotation = 10.0f;
     public int health = 100;
     // Start is called before the first frame update
@@ -42,7 +40,7 @@ public class PlayerController : MonoBehaviour
             // Smoothly rotate towards the target point.
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speedRotation * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             GameObject arrowProjectile = ArrowSpawnManager.SharedInstance.GetArrow();
             if(arrowProjectile != null)
