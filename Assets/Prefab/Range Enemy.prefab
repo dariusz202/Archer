@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRange: 20
   enemySpeed: 5
-  healthRangeEnemy: 100
+  healthRangeEnemy: 50
 --- !u!54 &6866825253372900089
 Rigidbody:
   m_ObjectHideFlags: 0

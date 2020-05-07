@@ -10,7 +10,12 @@ public class ArrowProjectile : MonoBehaviour
     [SerializeField] float horizontalBorder = 16.5f;
     private RangeEnemy rangeEnemy;
     private MeleeEnemy meleeEnemy;
+    private EnemySpawnManager enemySpawnManager;
 
+    private void Start()
+    {
+        enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
+    }
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * arrowSpeed);
@@ -41,7 +46,9 @@ public class ArrowProjectile : MonoBehaviour
             rangeEnemy.healthRangeEnemy -= 10;
             if(rangeEnemy.healthRangeEnemy <= 0)
             {
-                Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
+                rangeEnemy.healthRangeEnemy = 100;
+                other.gameObject.transform.position = enemySpawnManager.RandomPosition();
             }
 
         }
@@ -52,7 +59,9 @@ public class ArrowProjectile : MonoBehaviour
             meleeEnemy.healthMeleeEnemy -= 10;
             if(meleeEnemy.healthMeleeEnemy <= 0)
             {
-                Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
+                meleeEnemy.healthMeleeEnemy = 100;
+                other.gameObject.transform.position = enemySpawnManager.RandomPosition();
             }
 
         }

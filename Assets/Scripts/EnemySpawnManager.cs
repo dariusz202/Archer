@@ -7,37 +7,42 @@ public class EnemySpawnManager : MonoBehaviour
 {
     private float positionx;
     private float positionz;
-   // public RangeEnemy rangeEnemy;
-   // public MeleeEnemy meleeEnemy;
-    public GameObject[] enemyList = new GameObject[2];
+    public GameObject[] enemyTypeList = new GameObject[2];
+    public List<GameObject> enemys;
     private int rangeEnemyCount;
     private int meleeEnemyCount;
-    public int enemyCount;
-    public int waveNumber = 3;
+    public int amountEnemys;
+    public int enemyCount = 5;
+    public int waveNumber = 1;
     [SerializeField] float rangex1;
     [SerializeField] float rangex2;
     [SerializeField] float rangez;
 
-
     void Start()
     {
-        //Instantiate(rangeEnemy, RandomPosition(), rangeEnemy.transform.rotation);
+        enemys = new List<GameObject>();
+        for (int i = 0; i < amountEnemys; i++)
+        {
+            int randomIndex = Random.Range(0, enemyTypeList.Length);
+            GameObject obj = Instantiate(enemyTypeList[randomIndex], RandomPosition(), transform.rotation);
+            obj.SetActive(false);
+            enemys.Add(obj);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         rangeEnemyCount = FindObjectsOfType<RangeEnemy>().Length;
         meleeEnemyCount = FindObjectsOfType<MeleeEnemy>().Length;
         enemyCount = rangeEnemyCount + meleeEnemyCount;
-        if(enemyCount == 0)
+        if(enemyCount == 0 && waveNumber <= 5)
         {
-            spawnEnemy(waveNumber);
+            SpawnEnemy(waveNumber);
             waveNumber++;
         }
 
     }
-    Vector3 RandomPosition()
+    public Vector3 RandomPosition()
     {
         float x1 = Random.Range(rangex1, rangex2);
         float x2 = Random.Range(-rangex1, -rangex2);
@@ -50,13 +55,26 @@ public class EnemySpawnManager : MonoBehaviour
         Vector3 randomPosition = new Vector3(positionx, 1.5f, positionz);
         return randomPosition;
     }
-    void spawnEnemy(int waveNumber)
+
+    void SpawnEnemy(int waveNumber)
     {
-        for(int i =0; i< waveNumber; i++)
+        for (int i = 0; i < waveNumber; i++)
         {
-            int randomIndex = Random.Range(0, enemyList.Length);
-            Instantiate(enemyList[randomIndex], RandomPosition(), transform.rotation);
+            GetEnemy().SetActive(true);
         }
+
+    }
+
+    public GameObject GetEnemy()
+    {
+        for (int i = 0; i < enemys.Count; i++)
+        {
+            if (!enemys[i].activeInHierarchy)
+            {
+                return enemys[i];
+            }
+        }
+        return null;
     }
 
 }

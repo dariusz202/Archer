@@ -619,11 +619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435cbeff30df0fa4ca057a5058a85194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList:
+  enemyTypeList:
   - {fileID: 6255610636016380603, guid: 65152cb0d3cf59644a2da0bece5f00d7, type: 3}
   - {fileID: 8660836010751603914, guid: 777f2122da79c984a89f5b3c8329459d, type: 3}
+  enemys: []
+  amountEnemys: 5
   enemyCount: 0
-  waveNumber: 3
+  waveNumber: 1
   rangex1: 17
   rangex2: 20
   rangez: 12
