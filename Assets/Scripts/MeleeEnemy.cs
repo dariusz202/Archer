@@ -6,17 +6,18 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     private ArrowProjectile arrow;
-    public PlayerController playerStats;
-    public Transform player;
+    private PlayerController playerStats;
+    private Transform player;
     private Rigidbody enemyRB;
     private GameManager gameManager;
     [SerializeField] float enemySpeed = 5f;
+    public int healthMeleeEnemy = 100;
     void Start()
     {
         enemyRB = this.GetComponent<Rigidbody>();
         player = GameObject.Find("Player").GetComponent<Transform>();
         playerStats = GameObject.Find("Player").GetComponent<PlayerController>();
-        //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void Update()
