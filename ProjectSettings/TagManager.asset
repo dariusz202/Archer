@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Range Enemy
   - Melee Enemy
+  - Player Parent
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,7 @@ public class ArrowProjectile : MonoBehaviour
     [SerializeField] float horizontalBorder = 16.5f;
     private RangeEnemy rangeEnemy;
     private MeleeEnemy meleeEnemy;
+    private PlayerController player;
     private EnemySpawnManager enemySpawnManager;
 
     private void Start()
@@ -65,6 +66,8 @@ public class ArrowProjectile : MonoBehaviour
             }
 
         }
+
+
     }
 
 }

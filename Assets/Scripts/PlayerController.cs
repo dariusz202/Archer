@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speedRotation = 10.0f;
     public int health = 100;
+    private bool weaponIsActive = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,16 +41,24 @@ public class PlayerController : MonoBehaviour
             // Smoothly rotate towards the target point.
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speedRotation * Time.deltaTime);
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && weaponIsActive)
         {
             GameObject arrowProjectile = ArrowSpawnManager.SharedInstance.GetArrow();
             if(arrowProjectile != null)
             {
+                weaponIsActive = false;
+                StartCoroutine(Atack());
                 arrowProjectile.SetActive(true);
                 arrowProjectile.transform.position = transform.position;
                 arrowProjectile.transform.rotation = transform.rotation;
             }
         }
+    }
+    IEnumerator Atack()
+    {
+        yield return new WaitForSeconds(0.5f);
+        weaponIsActive = true;
+
     }
 
 }

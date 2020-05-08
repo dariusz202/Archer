@@ -9,9 +9,11 @@ public class RangeEnemy : MonoBehaviour
     private Transform player;
     private Rigidbody enemyRB;
     private GameManager gameManager;
-    [SerializeField] float enemyRange = 20f;
+    [SerializeField] float enemyRange = 15f;
     [SerializeField] float enemySpeed = 5f;
     public int healthRangeEnemy = 50;
+    public Vector3 a;
+    private bool weaponIsActive = true;
     void Start()
     {
         enemyRB = this.GetComponent<Rigidbody>();
@@ -27,11 +29,28 @@ public class RangeEnemy : MonoBehaviour
             transform.LookAt(player);
             transform.position += transform.forward * enemySpeed * Time.deltaTime;
         }
-        if (Vector3.Distance(transform.position, player.position) <= enemyRange)
+
+        if (Vector3.Distance(transform.position, player.position) < enemyRange)
         {
             transform.LookAt(player);
+            transform.position -= transform.forward * enemySpeed * Time.deltaTime;
+            GameObject spearProjectile = SpearSpawnManager.SharedInstance.GetSpear();
+            if (spearProjectile != null && weaponIsActive)
+            {
+                weaponIsActive = false;
+                StartCoroutine(AtackPlayer());
+                spearProjectile.SetActive(true);
+                spearProjectile.transform.position = transform.position;
+                spearProjectile.transform.rotation = transform.rotation;
+            }
+
         }
 
+    }
+    IEnumerator AtackPlayer()
+    {
+        yield return new WaitForSeconds(3);
+        weaponIsActive = true;
     }
 
     private void OnCollisionEnter(Collision collision)
