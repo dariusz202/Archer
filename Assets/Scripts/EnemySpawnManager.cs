@@ -14,9 +14,9 @@ public class EnemySpawnManager : MonoBehaviour
     public int amountEnemys;
     public int enemyCount = 5;
     public int waveNumber = 1;
-    [SerializeField] float rangex1;
-    [SerializeField] float rangex2;
-    [SerializeField] float rangez;
+    [SerializeField] float rangex1 = 17f;
+    [SerializeField] float rangex2 = 20f;
+    [SerializeField] float rangez = 12f;
 
     void Start()
     {

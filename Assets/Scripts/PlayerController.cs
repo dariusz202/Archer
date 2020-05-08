@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speedRotation = 10.0f;
-    public int health = 100;
     private bool weaponIsActive = true;
     // Start is called before the first frame update
     void Start()

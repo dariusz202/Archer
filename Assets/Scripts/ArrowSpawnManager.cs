@@ -7,7 +7,7 @@ public class ArrowSpawnManager : MonoBehaviour
     public static ArrowSpawnManager SharedInstance;
     public List<GameObject> arrows;
     public GameObject arrow;
-    [SerializeField] int amountArrows;
+    [SerializeField] int amountArrows = 5;
 
     private void Awake()
     {

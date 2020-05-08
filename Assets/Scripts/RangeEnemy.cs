@@ -4,36 +4,33 @@ using UnityEngine;
 
 public class RangeEnemy : MonoBehaviour
 {
-    private ArrowProjectile arrow;
-    private PlayerController playerStats;
+    private GameObject p;
+    private PlayerStats playerStats;
     private Transform player;
-    private Rigidbody enemyRB;
-    private GameManager gameManager;
-    [SerializeField] float enemyRange = 15f;
-    [SerializeField] float enemySpeed = 5f;
+    //private GameManager gameManager;
+    [SerializeField] float rangeEnemyRange = 15f;
+    [SerializeField] float rangeEnemySpeed = 5f;
     public int healthRangeEnemy = 50;
-    public Vector3 a;
-    private bool weaponIsActive = true;
+    public bool weaponIsActive = true;
     void Start()
     {
-        enemyRB = this.GetComponent<Rigidbody>();
         player = GameObject.Find("Player").GetComponent<Transform>();
-        playerStats = GameObject.Find("Player").GetComponent<PlayerController>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+        //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.position) > enemyRange)
+        if (Vector3.Distance(transform.position, player.position) > rangeEnemyRange)
         {
             transform.LookAt(player);
-            transform.position += transform.forward * enemySpeed * Time.deltaTime;
+            transform.position += transform.forward * rangeEnemySpeed * Time.deltaTime;
         }
 
-        if (Vector3.Distance(transform.position, player.position) < enemyRange)
+        if (Vector3.Distance(transform.position, player.position) <= rangeEnemyRange)
         {
             transform.LookAt(player);
-            transform.position -= transform.forward * enemySpeed * Time.deltaTime;
+            transform.position -= transform.forward * rangeEnemySpeed * Time.deltaTime;
             GameObject spearProjectile = SpearSpawnManager.SharedInstance.GetSpear();
             if (spearProjectile != null && weaponIsActive)
             {

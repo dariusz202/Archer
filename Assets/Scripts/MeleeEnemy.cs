@@ -5,25 +5,37 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    private ArrowProjectile arrow;
-    private PlayerController playerStats;
+    private PlayerStats playerStats;
     private Transform player;
-    private Rigidbody enemyRB;
-    private GameManager gameManager;
-    [SerializeField] float enemySpeed = 5f;
+    //private GameManager gameManager;
+    [SerializeField] float meleeEnemySpeed = 5f;
     public int healthMeleeEnemy = 100;
+    public bool weaponIsActive = true;
     void Start()
     {
-        enemyRB = this.GetComponent<Rigidbody>();
         player = GameObject.Find("Player").GetComponent<Transform>();
-        playerStats = GameObject.Find("Player").GetComponent<PlayerController>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+        //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void Update()
     {
+
         transform.LookAt(player);
-        transform.position += transform.forward * enemySpeed * Time.deltaTime;
+        transform.position += transform.forward * meleeEnemySpeed * Time.deltaTime;
+        if(Vector3.Distance(transform.position, player.position) <= 3f && weaponIsActive)
+        {
+            playerStats.health -= 10;
+            weaponIsActive = false;
+            StartCoroutine(AtackPlayer());
+}
+
+    }
+    IEnumerator AtackPlayer()
+    {
+        yield return new WaitForSeconds(2);
+        weaponIsActive = true;
+        Debug.Log(playerStats.health);
 
     }
 

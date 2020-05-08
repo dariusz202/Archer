@@ -10,12 +10,12 @@ public class ArrowProjectile : MonoBehaviour
     [SerializeField] float horizontalBorder = 16.5f;
     private RangeEnemy rangeEnemy;
     private MeleeEnemy meleeEnemy;
-    private PlayerController player;
     private EnemySpawnManager enemySpawnManager;
+    private PlayerStats playerStats;
 
     private void Start()
     {
-        enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
+        
     }
     void Update()
     {
@@ -37,37 +37,35 @@ public class ArrowProjectile : MonoBehaviour
             prefabs.SetActive(false);
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
+        enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
+        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
         if (other.gameObject.CompareTag("Range Enemy"))
         {
             prefabs.SetActive(false);
             rangeEnemy = other.GetComponent<RangeEnemy>();
-            rangeEnemy.healthRangeEnemy -= 10;
-            if(rangeEnemy.healthRangeEnemy <= 0)
+            rangeEnemy.healthRangeEnemy -= playerStats.attackPower;
+            if (rangeEnemy.healthRangeEnemy <= 0)
             {
                 other.gameObject.SetActive(false);
                 rangeEnemy.healthRangeEnemy = 100;
                 other.gameObject.transform.position = enemySpawnManager.RandomPosition();
+                rangeEnemy.weaponIsActive = true;
             }
-
         }
         if (other.gameObject.CompareTag("Melee Enemy"))
         {
             prefabs.SetActive(false);
             meleeEnemy = other.GetComponent<MeleeEnemy>();
-            meleeEnemy.healthMeleeEnemy -= 10;
-            if(meleeEnemy.healthMeleeEnemy <= 0)
+            meleeEnemy.healthMeleeEnemy -= playerStats.attackPower;
+            if (meleeEnemy.healthMeleeEnemy <= 0)
             {
                 other.gameObject.SetActive(false);
                 meleeEnemy.healthMeleeEnemy = 100;
                 other.gameObject.transform.position = enemySpawnManager.RandomPosition();
             }
-
         }
-
-
     }
 
 }
