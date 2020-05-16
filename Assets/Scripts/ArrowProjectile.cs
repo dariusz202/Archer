@@ -6,8 +6,8 @@ public class ArrowProjectile : MonoBehaviour
 {
     [SerializeField] float arrowSpeed = 50.0f;
     public GameObject prefabs;
-    [SerializeField] float verticalBorder = 12.0f;
-    [SerializeField] float horizontalBorder = 16.5f;
+    [SerializeField] float verticalBorder = 50.0f;
+    [SerializeField] float horizontalBorder = 50.5f;
     private RangeEnemy rangeEnemy;
     private MeleeEnemy meleeEnemy;
     private EnemySpawnManager enemySpawnManager;
@@ -19,7 +19,7 @@ public class ArrowProjectile : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * arrowSpeed);
+        transform.Translate(Vector3.left * Time.deltaTime * arrowSpeed);
         if (transform.position.x < -horizontalBorder)
         {
             prefabs.SetActive(false);
@@ -59,13 +59,19 @@ public class ArrowProjectile : MonoBehaviour
             prefabs.SetActive(false);
             meleeEnemy = other.GetComponent<MeleeEnemy>();
             meleeEnemy.healthMeleeEnemy -= playerStats.attackPower;
-            if (meleeEnemy.healthMeleeEnemy <= 0)
-            {
-                other.gameObject.SetActive(false);
-                meleeEnemy.healthMeleeEnemy = 100;
-                other.gameObject.transform.position = enemySpawnManager.RandomPosition();
-            }
+            //if (meleeEnemy.healthMeleeEnemy <= 0)
+            //{
+            //    StartCoroutine(EmemyDeath(other));
+            //}
         }
+    }
+    IEnumerator EmemyDeath(Collider other)
+    {
+        yield return new WaitForSeconds(1);
+        other.gameObject.SetActive(false);
+        meleeEnemy.healthMeleeEnemy = 100;
+        other.gameObject.transform.position = enemySpawnManager.RandomPosition();
+
     }
 
 }

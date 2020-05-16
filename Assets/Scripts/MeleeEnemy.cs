@@ -11,31 +11,79 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] float meleeEnemySpeed = 5f;
     public int healthMeleeEnemy = 100;
     public bool weaponIsActive = true;
+    public bool isReady = true;
+    public Animator SkeletonAnim;
+    private EnemySpawnManager enemySpawnManager;
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
         playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+
         //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void Update()
     {
-
-        transform.LookAt(player);
-        transform.position += transform.forward * meleeEnemySpeed * Time.deltaTime;
-        if(Vector3.Distance(transform.position, player.position) <= 3f && weaponIsActive)
+        if(Vector3.Distance(transform.position, player.transform.position) < 50.0f && Vector3.Distance(transform.position, player.transform.position) > 3 && healthMeleeEnemy > 0)
         {
-            playerStats.health -= 10;
+            transform.LookAt(player);
+            transform.position += transform.forward * meleeEnemySpeed * Time.deltaTime;
+            SkeletonAnim.SetBool("InRange", true);
+        }
+        if (Vector3.Distance(transform.position, player.transform.position) > 20.0f)
+        {
+            //transform.LookAt(player);
+            //transform.position += transform.forward * meleeEnemySpeed * Time.deltaTime;
+            SkeletonAnim.SetBool("InRange", false);
+        }
+        if (Vector3.Distance(transform.position, player.transform.position) <= 3 && weaponIsActive && healthMeleeEnemy > 0)
+        {
             weaponIsActive = false;
-            StartCoroutine(AtackPlayer());
-}
+            SkeletonAnim.SetBool("InRange", false);
+            transform.LookAt(player);
+            SkeletonAnim.SetTrigger("Attack");
+            StartCoroutine(MeleeAtack());
+        }
+        if(healthMeleeEnemy == 0 && isReady)
+        {
+            isReady = false;
+            SkeletonAnim.SetTrigger("Death");
+            //StartCoroutine(MeleeDeath());
+        }
+        if(enemySpawnManager.enemyCount == 0)
+        {
+            gameObject.SetActive(false);
+            isReady = true;
+            enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
+            healthMeleeEnemy = 100;
+            transform.position = enemySpawnManager.RandomPosition();
+
+        }
+        
+        //transform.LookAt(player);
+        // transform.position += transform.forward * meleeEnemySpeed * Time.deltaTime;
+        //if(Vector3.Distance(transform.position, player.position) <= 3f && weaponIsActive)
+        // {
+        //     playerStats.health -= 10;
+        //     weaponIsActive = false;
+        //     StartCoroutine(AtackPlayer());
+        // }
 
     }
-    IEnumerator AtackPlayer()
+    IEnumerator MeleeAtack()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5f);
         weaponIsActive = true;
-        Debug.Log(playerStats.health);
+
+    }
+    IEnumerator MeleeDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        isReady = true;
+        enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
+        gameObject.SetActive(false);
+        healthMeleeEnemy = 100;
+        transform.position = enemySpawnManager.RandomPosition();
 
     }
 

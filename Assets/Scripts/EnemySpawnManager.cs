@@ -52,7 +52,7 @@ public class EnemySpawnManager : MonoBehaviour
             positionx = x2;
         positionz = Random.Range(rangez, -rangez);
 
-        Vector3 randomPosition = new Vector3(positionx, 1.5f, positionz);
+        Vector3 randomPosition = new Vector3(positionx, 0, positionz);
         return randomPosition;
     }
 
