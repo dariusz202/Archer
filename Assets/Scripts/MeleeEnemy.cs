@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.AssetImporters;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MeleeEnemy : MonoBehaviour
 {
@@ -14,11 +15,15 @@ public class MeleeEnemy : MonoBehaviour
     public bool isReady = true;
     public Animator SkeletonAnim;
     private EnemySpawnManager enemySpawnManager;
+    private GameManager gameManager;
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
-        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+        playerStats = GameObject.Find("GameManager").GetComponent<PlayerStats>();
         enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        
     }
 
     void Update()
@@ -46,14 +51,15 @@ public class MeleeEnemy : MonoBehaviour
             SkeletonAnim.SetBool("InRange", false);
             transform.LookAt(player);
             SkeletonAnim.SetTrigger("Attack");
-            playerStats.health -= 10;
-            Debug.Log("asdasd" + playerStats.health);
+            playerStats.currentHealth -= 10;
+            Debug.Log("asdasd" + playerStats.currentHealth);
             StartCoroutine(MeleeAtack());
         }
-        if(healthMeleeEnemy == 0 && isReady)
+        if(healthMeleeEnemy <= 0 && isReady)
         {
             isReady = false;
             SkeletonAnim.SetTrigger("Death");
+            gameManager.gold += 10;
             StartCoroutine(MeleeDeath());
         }
 

@@ -35,7 +35,7 @@ public class ArrowProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         enemySpawnManager = GameObject.Find("Enemy Spawn Manager").GetComponent<EnemySpawnManager>();
-        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+        playerStats = GameObject.Find("GameManager").GetComponent<PlayerStats>();
         if (other.gameObject.CompareTag("Range Enemy"))
         {
             prefabs.SetActive(false);

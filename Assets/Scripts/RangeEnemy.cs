@@ -7,7 +7,6 @@ public class RangeEnemy : MonoBehaviour
     private GameObject p;
     private PlayerStats playerStats;
     private Transform player;
-    //private GameManager gameManager;
     [SerializeField] float rangeEnemyRange = 15f;
     [SerializeField] float rangeEnemySpeed = 5f;
     public int healthRangeEnemy = 50;
@@ -15,8 +14,7 @@ public class RangeEnemy : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
-        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
-        //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerStats = GameObject.Find("GameManager").GetComponent<PlayerStats>();
     }
 
     void Update()
@@ -54,8 +52,8 @@ public class RangeEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerStats.health -= 10;
-            Debug.Log("asdasd" + playerStats.health);
+            playerStats.currentHealth -= 10;
+            Debug.Log("asdasd" + playerStats.currentHealth);
         }
     }
 

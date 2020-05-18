@@ -38,13 +38,12 @@ public class SpearProjectiles : MonoBehaviour
         {
             prefabs.SetActive(false);
             playerStats = other.GetComponent<PlayerStats>();
-            playerStats.health -= 10;
-            if (playerStats.health <= 0)
+            playerStats.currentHealth -= 10;
+            if (playerStats.currentHealth <= 0)
             {
                 Time.timeScale = 0;
-                //other.gameObject.SetActive(false);
             }
-            Debug.Log("asdasd" + playerStats.health);
+            Debug.Log("asdasd" + playerStats.currentHealth);
 
         }
 

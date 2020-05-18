@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int health = 100;
+    public int maxHealth = 100;
+    public int currentHealth = 100;
     public int attackPower = 50;
+
+    public void AddAttack()
+    {
+        attackPower += 5;
+    }
+    public void AddMaxHealth()
+    {
+        maxHealth += 10;
+    }
 }

@@ -245,7 +245,6 @@ GameObject:
   - component: {fileID: 2064838438193140294}
   - component: {fileID: 2064838439771765501}
   - component: {fileID: 2064838439771765378}
-  - component: {fileID: 2064838439771765377}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -317,21 +316,6 @@ MonoBehaviour:
   anim: {fileID: 2064838438193140294}
   smooth: 10
   TargetShoot: {fileID: 0}
---- !u!114 &2064838439771765377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064838438200328946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc635ca53ea54914087b90a61005b456, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 500
-  health: 100
-  attackPower: 10
 --- !u!1 &2064838438200488960
 GameObject:
   m_ObjectHideFlags: 0
