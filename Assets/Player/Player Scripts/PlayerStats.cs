@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    //public float playerSpeed = 100.0f;
     public int health = 100;
-    public int attackPower = 100;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int attackPower = 50;
 }

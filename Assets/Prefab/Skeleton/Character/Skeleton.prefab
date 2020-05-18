@@ -1293,9 +1293,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1ac1d691c4c7f40ae400a2fbc3cdfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeRange: 30
   meleeEnemySpeed: 5
   healthMeleeEnemy: 100
   weaponIsActive: 1
+  isReady: 1
   SkeletonAnim: {fileID: 7487219084039883881}
 --- !u!65 &3469525311112869719
 BoxCollider:
@@ -1324,7 +1326,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &7487219084030410729
 GameObject:

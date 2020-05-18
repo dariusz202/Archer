@@ -12,11 +12,6 @@ public class ArrowProjectile : MonoBehaviour
     private MeleeEnemy meleeEnemy;
     private EnemySpawnManager enemySpawnManager;
     private PlayerStats playerStats;
-
-    private void Start()
-    {
-        
-    }
     void Update()
     {
         transform.Translate(Vector3.left * Time.deltaTime * arrowSpeed);
@@ -59,19 +54,11 @@ public class ArrowProjectile : MonoBehaviour
             prefabs.SetActive(false);
             meleeEnemy = other.GetComponent<MeleeEnemy>();
             meleeEnemy.healthMeleeEnemy -= playerStats.attackPower;
-            //if (meleeEnemy.healthMeleeEnemy <= 0)
-            //{
-            //    StartCoroutine(EmemyDeath(other));
-            //}
+            if (meleeEnemy.healthMeleeEnemy > 0)
+            {
+                meleeEnemy.SkeletonAnim.SetTrigger("GetDamage");
+            }
         }
-    }
-    IEnumerator EmemyDeath(Collider other)
-    {
-        yield return new WaitForSeconds(1);
-        other.gameObject.SetActive(false);
-        meleeEnemy.healthMeleeEnemy = 100;
-        other.gameObject.transform.position = enemySpawnManager.RandomPosition();
-
     }
 
 }

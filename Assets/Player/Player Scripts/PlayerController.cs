@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     float tiltAngle = 90.0f;
     float mouseX;
     public Transform TargetShoot;
-    //bool movment = false;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
