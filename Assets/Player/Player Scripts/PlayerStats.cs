@@ -16,4 +16,13 @@ public class PlayerStats : MonoBehaviour
     {
         maxHealth += 10;
     }
+
+    public void ChangeWeapon(ItemPickUp weaponPickUp)
+    {
+
+    }
+    public void ChangeArmor(ItemPickUp armorPickUp)
+    {
+
+    }
 }
